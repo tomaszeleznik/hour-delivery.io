@@ -21,15 +21,26 @@ Route::get('/', function (){
    return view('base');
 });
 
-Route::get('/admin', function () {
-    return view('dashboard');
+//need to add admin middleware
+//Route::get('/admin', function () {
+//    return view('dashboard');
+//});
+Route::get('/admin', 'Admin\AdminController@index')->name('admin');
+//
+Route::group(['prefix' => 'orders'], function(){
+    Route::get('all', function () { return view('admin.pages.orders.all'); });
+    //Route::get('read', function () { return view('pages.email.read'); });
+    //Route::get('compose', function () { return view('pages.email.compose'); });
+});
+
+Route::group(['prefix' => 'taxi'], function(){
+    Route::get('drivers', function () { return view('admin.pages.taxi.drivers'); });
+
+    Route::get('map', function () { return view('admin.pages.taxi.map'); });
+    //Route::get('read', function () { return view('pages.email.read'); });
+    //Route::get('compose', function () { return view('pages.email.compose'); });
 });
 //
-//Route::group(['prefix' => 'email'], function(){
-//    Route::get('inbox', function () { return view('pages.email.inbox'); });
-//    Route::get('read', function () { return view('pages.email.read'); });
-//    Route::get('compose', function () { return view('pages.email.compose'); });
-//});
 //
 //Route::group(['prefix' => 'apps'], function(){
 //    Route::get('chat', function () { return view('pages.apps.chat'); });
